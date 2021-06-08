@@ -60,6 +60,10 @@ public class Config {
 
     private boolean enableRestService = true;
 
+    private int clientsNum = 4;
+
+    private int instancesNumPerClient = 12;
+
     public int getMaxTimeseriesLength() {
         return maxTimeseriesLength;
     }
@@ -218,5 +222,21 @@ public class Config {
 
     public void setEnableRestService(boolean enableRestService) {
         this.enableRestService = enableRestService;
+    }
+
+    public int getClientsNum() {
+        return clientsNum;
+    }
+
+    public void setClientsNum(int clientsNum) {
+        this.clientsNum = clientsNum;
+    }
+
+    public int getInstancesNumPerClient() {
+        return instancesNumPerClient;
+    }
+
+    public void setInstancesNumPerClient(int instancesNumPerClient) {
+        this.instancesNumPerClient = instancesNumPerClient;
     }
 }
