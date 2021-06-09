@@ -60,7 +60,7 @@ public class Config {
 
     private boolean enableRestService = true;
 
-    private int clientsNum = 4;
+    private String clients = "tpc5,tpc6,tpc7,tpc8";
 
     private int instancesNumPerClient = 12;
 
@@ -224,12 +224,12 @@ public class Config {
         this.enableRestService = enableRestService;
     }
 
-    public int getClientsNum() {
-        return clientsNum;
+    public String getClients() {
+        return clients;
     }
 
-    public void setClientsNum(int clientsNum) {
-        this.clientsNum = clientsNum;
+    public void setClients(String clients) {
+        this.clients = clients;
     }
 
     public int getInstancesNumPerClient() {

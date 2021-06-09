@@ -576,20 +576,20 @@ public abstract class AbstractMetaManager implements IMetaManager, IService {
     public Map<TimeSeriesInterval, List<FragmentMeta>> generateFragments(String startPath, long startTime) {
         Map<TimeSeriesInterval, List<FragmentMeta>> fragmentMap = new HashMap<>();
 
-        int clientsNum = ConfigDescriptor.getInstance().getConfig().getClientsNum();
+        String[] clients = ConfigDescriptor.getInstance().getConfig().getClients().split(",");
         int instancesNumPerClient = ConfigDescriptor.getInstance().getConfig().getInstancesNumPerClient() - 1;
         int replicaNum = Math.min(1 + ConfigDescriptor.getInstance().getConfig().getReplicaNum(), getStorageEngineList().size());
-        String[] prefixes = new String[clientsNum * instancesNumPerClient];
-        for (int i = 0; i < clientsNum; i++) {
+        String[] prefixes = new String[clients.length * instancesNumPerClient];
+        for (int i = 0; i < clients.length; i++) {
             for (int j = 0; j < instancesNumPerClient; j++) {
-                prefixes[i * instancesNumPerClient + j] = "tpc" + (i + 1) + (j + 2);
+                prefixes[i * instancesNumPerClient + j] = clients[i] + (j + 2);
             }
         }
         Arrays.sort(prefixes);
 
         List<FragmentMeta> fragmentList;
         List<Long> storageEngineList;
-        for (int i = 0; i < clientsNum * instancesNumPerClient - 1; i++) {
+        for (int i = 0; i < clients.length * instancesNumPerClient - 1; i++) {
             fragmentList = new ArrayList<>();
             storageEngineList = new ArrayList<>();
             for (int j = i; j < i + replicaNum; j++) {
@@ -612,8 +612,8 @@ public abstract class AbstractMetaManager implements IMetaManager, IService {
         for (int i = 0; i < replicaNum; i++) {
             storageEngineList.add(getStorageEngineList().get(getStorageEngineList().size() - 1 - i).getId());
         }
-        fragmentList.add(new FragmentMeta(prefixes[clientsNum * instancesNumPerClient - 1], null, 0, Long.MAX_VALUE, storageEngineList));
-        fragmentMap.put(new TimeSeriesInterval(prefixes[clientsNum * instancesNumPerClient - 1], null), fragmentList);
+        fragmentList.add(new FragmentMeta(prefixes[clients.length * instancesNumPerClient - 1], null, 0, Long.MAX_VALUE, storageEngineList));
+        fragmentMap.put(new TimeSeriesInterval(prefixes[clients.length * instancesNumPerClient - 1], null), fragmentList);
 
 //        Map<TimeSeriesInterval, List<FragmentMeta>> fragmentMap = new HashMap<>();
 //        List<FragmentMeta> leftFragmentList = new ArrayList<>();

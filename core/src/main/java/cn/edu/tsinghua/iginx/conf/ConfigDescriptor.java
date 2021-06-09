@@ -75,7 +75,7 @@ public class ConfigDescriptor {
             config.setMaxTimeseriesLength(Integer.parseInt(properties.getProperty("maxtimeserieslength", "10")));
             config.setEnableRestService(Boolean.parseBoolean(properties.getProperty("enableRestService", "true")));
 
-            config.setClientsNum(Integer.parseInt(properties.getProperty("clientsNum", "4")));
+            config.setClients(properties.getProperty("clients", "tpc5,tpc6,tpc7,tpc8"));
             config.setInstancesNumPerClient(Integer.parseInt(properties.getProperty("instancesNumPerClient", "12")));
 
         } catch (IOException e) {
